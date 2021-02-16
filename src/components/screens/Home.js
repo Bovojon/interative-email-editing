@@ -33,10 +33,14 @@ const Home = () => {
   const [bookings, setBookings] = useState({})
   const [shot, setShop] = useState({})
   const [order, setOrder] = useState({})
+  const [otherDetails, setOtherDetails] = useState('')
 
   const [headingColor, setHeadingColor] = useState('black')
   const handleHeadingColorChange = (event) => {
     setHeadingColor(event.target.value);
+  }
+  const handleDetailsChange = (event) => {
+    setOtherDetails(event.target.value);
   }
   const onSubmit = () => {
     console.log("Success")
@@ -78,6 +82,9 @@ const Home = () => {
               <p>You will receive a reminder email one day prior to your experience</p>
             </Card.Section>
             <Card.Section>
+              <p style={{ whiteSpace: "pre-line" }}>{otherDetails}</p>
+            </Card.Section>
+            <Card.Section>
               <p>If you believe you received this in error, please contact Company Name</p>
               <br></br>
               <p>company.name@experiencesapp.com</p>
@@ -94,7 +101,7 @@ const Home = () => {
                 <input type="color" id="favcolor" name="favcolor" value={headingColor} onChange={handleHeadingColorChange} />
               </Card.Section>
               <Card.Section title="Other details">
-                <textarea id="w3review" name="w3review" rows="4" cols="40"></textarea>
+                <textarea id="w3review" name="w3review" rows="4" cols="40" value={otherDetails} onChange={handleDetailsChange}></textarea>
               </Card.Section>
               <input type="submit" />
             </form>
