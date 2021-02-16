@@ -1,21 +1,7 @@
 import React, { useState } from 'react';
-import {
-	Grid,
-	Paper,
-  Box,
-  TextField
-} from '@material-ui/core';
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
-
-const Preview = styled(Paper)`
-  text-align: center;
-  padding: 20px;
-  margin-right: 15px;
-`
-
-const Form = styled(Paper)`
-  padding: 10px;
-`
+import { Stack, Card, Layout } from '@shopify/polaris';
 
 const Heading = styled.h3`
   color: ${props => props.color};
@@ -37,24 +23,41 @@ const Home = () => {
   const handleHeadingColorChange = (event) => {
     setHeadingColor(event.target.value);
   }
+  const onSubmit = () => {
+    console.log("Success")
+  }
+
+  const { register, handleSubmit, watch, errors } = useForm();
+
+  // <TextField value={headingColor} onChange={handleHeadingColorChange} id="heading color" label="Heading Color" type="text" fullWidth margin="normal" />
 
   return (
-    <Box m={2}>
-      <Grid container direction="row" justify="center" alignItems="flex-start">
-        <Grid item xs={12} sm={7}>
-          <Preview variant="outlined" square>
+    <div style={{ margin: "2rem" }}>
+      <Layout>
+        <Layout.Section>
+          <Card sectioned>
             <Heading color={headingColor}>Hello {customer.firstName + ' ' + customer.lastName}</Heading>
             <h4>You are confirmed for</h4>
-          </Preview>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Form variant="outlined" square>
-            <h3>Customize Email</h3>
-            <TextField value={headingColor} onChange={handleHeadingColorChange} id="heading color" label="Heading Color" type="text" fullWidth margin="normal" />
-          </Form>
-        </Grid>
-      </Grid>
-    </Box>
+          </Card>
+        </Layout.Section>
+        <Layout.Section secondary>
+          <Card sectioned>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Card.Section title="Logo">
+                <input type="file" id="myfile" name="myfile" />
+              </Card.Section>
+              <Card.Section title="Color">
+                <input type="color" id="favcolor" name="favcolor" value="#ff0000" />
+              </Card.Section>
+              <Card.Section title="Other details">
+                <textarea id="w3review" name="w3review" rows="4" cols="40"></textarea>
+              </Card.Section>
+              <input type="submit" />
+            </form>
+          </Card>
+        </Layout.Section>
+      </Layout>
+    </div>
   );
 }
 
