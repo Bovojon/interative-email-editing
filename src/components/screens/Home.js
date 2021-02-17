@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
 import { Stack, Card, Layout, Button } from '@shopify/polaris';
-
-const Heading = styled.h3`
-  color: ${props => props.color};
-`
 
 const exampleCustomer = {
   firstName: "Arturo",
@@ -35,7 +30,7 @@ const Home = () => {
   const [order, setOrder] = useState({})
   const [otherDetails, setOtherDetails] = useState('')
 
-  const [headingColor, setHeadingColor] = useState('black')
+  const [customColor, setHeadingColor] = useState('black')
   const handleHeadingColorChange = (event) => {
     setHeadingColor(event.target.value);
   }
@@ -48,17 +43,19 @@ const Home = () => {
   const { register, handleSubmit, watch, errors } = useForm();
   const onSubmit = data => console.log(data);
 
-  // <TextField value={headingColor} onChange={handleHeadingColorChange} id="heading color" label="Heading Color" type="text" fullWidth margin="normal" />
-
   return (
     <div style={{ margin: "2rem" }}>
       <Layout>
         <Layout.Section>
           <Card sectioned>
+            <img 
+              src="https://apps.shopifycdn.com/listing_images/63aff7910c14e25babf55efa88f4882e/icon/75b4eb456412fe639c45389bdba2bcb6.png" 
+              style={{ width: '20%', height: '20%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} 
+            />
             <Card.Section title={`Hello ${customer.firstName + ' ' + customer.lastName},`}>
               <Card.Subsection>You are confirmed for</Card.Subsection>
               <br></br>
-              <p>Awesome Experience</p>
+              <p style={{ color: customColor }}>Awesome Experience</p>
             </Card.Section>
             <Card.Section>
               {exampleBookings.map(booking => {
@@ -97,13 +94,13 @@ const Home = () => {
           <Card sectioned>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Card.Section title="Logo">
-                <input type="file" id="myfile" name="myfile" ref={register} />
+                <input type="file" id="photo" name="photo" ref={register} />
               </Card.Section>
               <Card.Section title="Color">
-                <input type="color" id="favcolor" name="favcolor" value={headingColor} onChange={handleHeadingColorChange} ref={register} />
+                <input type="color" id="color" name="color" value={customColor} onChange={handleHeadingColorChange} ref={register} />
               </Card.Section>
               <Card.Section title="Other details">
-                <textarea id="w3review" name="w3review" rows="4" cols="40" value={otherDetails} onChange={handleDetailsChange} ref={register}></textarea>
+                <textarea id="desc" name="desc" rows="4" cols="40" value={otherDetails} onChange={handleDetailsChange} ref={register}></textarea>
               </Card.Section>
               <input type="submit" />
             </form>
