@@ -42,13 +42,11 @@ const Home = () => {
   const handleDetailsChange = (event) => {
     setOtherDetails(event.target.value);
   }
-  const onSubmit = () => {
-    console.log("Success")
-  }
 
   const name = "Evangeline Cole";
 
   const { register, handleSubmit, watch, errors } = useForm();
+  const onSubmit = data => console.log(data);
 
   // <TextField value={headingColor} onChange={handleHeadingColorChange} id="heading color" label="Heading Color" type="text" fullWidth margin="normal" />
 
@@ -71,7 +69,7 @@ const Home = () => {
                     <p>Add to Calendar</p>
                     <p>Google | Apple | Outlook | Yahoo</p>
                     <br></br>
-                    <Button>Add product</Button>
+                    <Button>Join Via Zoom</Button>
                     <br></br>
                     <br></br>
                   </>
@@ -81,9 +79,13 @@ const Home = () => {
               <br></br>
               <p>You will receive a reminder email one day prior to your experience</p>
             </Card.Section>
-            <Card.Section>
-              <p style={{ whiteSpace: "pre-line" }}>{otherDetails}</p>
-            </Card.Section>
+            {otherDetails === '' ?
+              null
+              :
+              <Card.Section>
+                <p style={{ whiteSpace: "pre-line" }}>{otherDetails}</p>
+              </Card.Section>
+            }
             <Card.Section>
               <p>If you believe you received this in error, please contact Company Name</p>
               <br></br>
@@ -95,13 +97,13 @@ const Home = () => {
           <Card sectioned>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Card.Section title="Logo">
-                <input type="file" id="myfile" name="myfile" />
+                <input type="file" id="myfile" name="myfile" ref={register} />
               </Card.Section>
               <Card.Section title="Color">
-                <input type="color" id="favcolor" name="favcolor" value={headingColor} onChange={handleHeadingColorChange} />
+                <input type="color" id="favcolor" name="favcolor" value={headingColor} onChange={handleHeadingColorChange} ref={register} />
               </Card.Section>
               <Card.Section title="Other details">
-                <textarea id="w3review" name="w3review" rows="4" cols="40" value={otherDetails} onChange={handleDetailsChange}></textarea>
+                <textarea id="w3review" name="w3review" rows="4" cols="40" value={otherDetails} onChange={handleDetailsChange} ref={register}></textarea>
               </Card.Section>
               <input type="submit" />
             </form>
